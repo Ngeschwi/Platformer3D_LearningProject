@@ -8,6 +8,8 @@ TagManager:
   - Hurt
   - Mob
   - Enemy
+  - Cam1
+  - Cam2
   layers:
   - Default
   - TransparentFX

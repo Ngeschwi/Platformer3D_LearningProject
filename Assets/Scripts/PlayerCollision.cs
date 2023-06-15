@@ -6,14 +6,37 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     public int _nbrCoins = 0;
+    public GameObject _PickUpEffect;
+    public GameObject _KillMobEffect;
+    public GameObject _Camera;
     private Vector3 _HitDirection;
     private Vector3 _JumpDirection;
-    
+    private float _rotationCamera1 = -90f;
+    private float _rotationCamera2 = 180f;
+
     private void OnTriggerEnter(Collider other) {
         
         if (other.gameObject.tag == "Coin") {
+            GameObject go = Instantiate(_PickUpEffect, other.transform.position, Quaternion.identity);
             Destroy(other.gameObject);
+            Destroy(go, 0.5f);
             _nbrCoins++;
+        }
+
+        if (other.gameObject.tag == "Cam1") {
+            _Camera.transform.RotateAround(transform.position, Vector3.up, _rotationCamera1);
+            //_Camera.transform.LookAt(transform.position);
+        } else if (other.gameObject.tag == "Cam2") {
+            _Camera.transform.RotateAround(transform.position, Vector3.up, _rotationCamera2);
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        
+        if (other.gameObject.tag == "Cam1") {
+            _Camera.transform.RotateAround(transform.position, Vector3.up, -1 * _rotationCamera1);
+        } else if (other.gameObject.tag == "Cam2") {
+            _Camera.transform.Rotate(0f, -1 * _rotationCamera2, 0f, Space.Self);
         }
     }
 
@@ -24,8 +47,10 @@ public class PlayerCollision : MonoBehaviour
             StepBackWhenHit();
         } else if (other.gameObject.tag == "Enemy") {
             print("Tue !");
+            GameObject go = Instantiate(_KillMobEffect, other.transform.position, Quaternion.identity);
             JumpOnEnemy();
             Destroy(other.gameObject.transform.parent.gameObject);
+            Destroy(go, 0.5f);
         }
     }
     

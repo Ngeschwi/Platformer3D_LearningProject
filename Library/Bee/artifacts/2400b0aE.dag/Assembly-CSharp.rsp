@@ -352,6 +352,7 @@
 "Assets/Scripts/Animation Scripts/CoinAnim.cs"
 "Assets/Scripts/Animation Scripts/FlowerAnim.cs"
 "Assets/Scripts/Animation Scripts/GrassAnim.cs"
+"Assets/Scripts/CameraController.cs"
 "Assets/Scripts/PlayerCollision.cs"
 "Assets/Scripts/PlayerController.cs"
 -langversion:9.0

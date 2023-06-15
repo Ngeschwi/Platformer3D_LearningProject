@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     private Animator _anim;
     private bool _isWalking;
     public bool _canMove = true;
+    private float _horizontalInput;
+    private float _verticalInput;
+    public Camera _Camera;
     
     void Start() {
         
@@ -22,16 +25,24 @@ public class PlayerController : MonoBehaviour
     
     void Update() {
         
+        _horizontalInput = Input.GetAxis("Horizontal");
+        _verticalInput = Input.GetAxis("Vertical");
+        
+        Vector3 cameraForward = _Camera.transform.forward;
+        Vector3 moveDirection = cameraForward * _verticalInput + _Camera.transform.right * _horizontalInput;
+        
         _moveDirection = new Vector3(
-                    Input.GetAxis("Horizontal") * _moveSpeed,
+                    moveDirection.x * _moveSpeed,
                     _moveDirection.y,
-                    Input.GetAxis("Vertical") * _moveSpeed);
+                    moveDirection.z * _moveSpeed);
         
         if (Input.GetKeyDown(KeyCode.Space) && _controller.isGrounded) {
             _moveDirection.y = _jumpForce;
         }
-        
-        _moveDirection.y -= _gravity * Time.deltaTime;
+
+        if (!_controller.isGrounded) {
+            _moveDirection.y -= _gravity * Time.deltaTime;
+        }
         
         if (_moveDirection.x != 0 || _moveDirection.z != 0) {
             _isWalking = true;
