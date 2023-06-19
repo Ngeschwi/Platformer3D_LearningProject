@@ -47,6 +47,7 @@
      <Compile Include="Assets/Scripts/Animation Scripts/FlowerAnim.cs" />
      <Compile Include="Assets/Scripts/Animation Scripts/GrassAnim.cs" />
      <Compile Include="Assets/Scripts/PlayerCollision.cs" />
+     <Compile Include="Assets/Scripts/MonsterAI.cs" />
      <Compile Include="Assets/Scripts/CameraController.cs" />
      <Compile Include="Assets/Scripts/PlayerController.cs" />
      <Compile Include="Assets/Scripts/ButtonManager.cs" />
@@ -62,6 +63,7 @@
      <None Include="Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader" />
      <Folder Include="Assets/TextMesh Pro/Resources" />
+     <Folder Include="Assets/Scenes/Level1" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader" />
      <Folder Include="Assets/TextMesh Pro" />
      <Folder Include="Assets/Sounds" />

@@ -355,6 +355,7 @@
 "Assets/Scripts/ButtonManager.cs"
 "Assets/Scripts/CameraController.cs"
 "Assets/Scripts/CheckPointManager.cs"
+"Assets/Scripts/MonsterAI.cs"
 "Assets/Scripts/PlayerCollision.cs"
 "Assets/Scripts/PlayerController.cs"
 "Assets/Scripts/PlayerInfos.cs"

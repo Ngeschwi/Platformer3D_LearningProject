@@ -12,6 +12,7 @@ TagManager:
   - Cam2
   - Checkpoint
   - Fall
+  - End
   layers:
   - Default
   - TransparentFX

@@ -46,7 +46,7 @@ public class PlayerCollision : MonoBehaviour
             CheckPointManager._InstanceCheckPointManager.ActiveCheckPoint();
         }
         
-        if (other.gameObject.name == "End") {
+        if (other.gameObject.tag == "End") {
             PlayerInfos._InstancePlayerInfos.ShowFinalScore();
         }
     }
