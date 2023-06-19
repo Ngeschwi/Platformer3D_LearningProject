@@ -352,9 +352,12 @@
 "Assets/Scripts/Animation Scripts/CoinAnim.cs"
 "Assets/Scripts/Animation Scripts/FlowerAnim.cs"
 "Assets/Scripts/Animation Scripts/GrassAnim.cs"
+"Assets/Scripts/ButtonManager.cs"
 "Assets/Scripts/CameraController.cs"
+"Assets/Scripts/CheckPointManager.cs"
 "Assets/Scripts/PlayerCollision.cs"
 "Assets/Scripts/PlayerController.cs"
+"Assets/Scripts/PlayerInfos.cs"
 -langversion:9.0
 
 /deterministic

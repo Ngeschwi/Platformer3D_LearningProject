@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private float _horizontalInput;
     private float _verticalInput;
     public Camera _Camera;
-    
+
     void Start() {
         
         _controller = GetComponent<CharacterController>();
