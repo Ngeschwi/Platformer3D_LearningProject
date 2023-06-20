@@ -8,7 +8,7 @@ public class PlayerCollision : MonoBehaviour
     public GameObject _PickUpEffect;
     public GameObject _KillMobEffect;
     public GameObject _PlayerHitEffect;
-    public GameObject _Camera;
+    public GameObject _Coin;
     private Vector3 _HitDirection;
     private Vector3 _JumpDirection;
     public GameObject _Cam1;
@@ -28,27 +28,22 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         
-        if (other.gameObject.tag == "Coin") {
-            _audioSource.PlayOneShot(_CoinsSound);
-            GameObject go = Instantiate(_PickUpEffect, other.transform.position, Quaternion.identity);
-            Destroy(other.gameObject);
-            Destroy(go, 0.5f);
-            PlayerInfos._InstancePlayerInfos.GetCoin();
-        }
+        if (other.gameObject.tag == "Coin")
+            PickACoin(other);
 
-        if (other.gameObject.tag == "Cam1") {
+        if (other.gameObject.tag == "Cam1")
             _Cam1.SetActive(true);
-        } else if (other.gameObject.tag == "Cam2") {
+        else if (other.gameObject.tag == "Cam2")
             _Cam2.SetActive(true);
-        }
-
-        if (other.gameObject.tag == "Checkpoint") {
+            
+        if (other.gameObject.tag == "Checkpoint")
             CheckPointManager._InstanceCheckPointManager.ActiveCheckPoint();
-        }
         
-        if (other.gameObject.tag == "End") {
+        if (other.gameObject.tag == "End")
             PlayerInfos._InstancePlayerInfos.ShowFinalScore();
-        }
+        
+        if (other.gameObject.tag == "Cage")
+            CageScript._InstanceCageScript.EnterInACageZone(other);
     }
 
     private void OnTriggerExit(Collider other) {
@@ -58,25 +53,25 @@ public class PlayerCollision : MonoBehaviour
         } else if (other.gameObject.tag == "Cam2") {
             _Cam2.SetActive(false);
         }
+        
+        if (other.gameObject.tag == "Cage")
+            CageScript._InstanceCageScript.ExitInACageZone();
     }
 
     private void OnControllerColliderHit(ControllerColliderHit other) {
     
-        if (other.gameObject.tag == "Hurt" && !_IsInvincible) {
-            print("Aie !");
-            PlayerInfos._InstancePlayerInfos.SetHealth(-1);
+        if (other.gameObject.tag == "Hurt" && !_IsInvincible)
             StepBackWhenHit();
-        } else if (other.gameObject.tag == "Enemy") {
-            print("Tue !");
+        else if (other.gameObject.tag == "Enemy")
             JumpOnEnemy(other.transform.parent.gameObject);
-        }
         
-        if (other.gameObject.tag == "Fall") {
+        if (other.gameObject.tag == "Fall")
             CheckPointManager._InstanceCheckPointManager.RespawnPlayer();
-        }
     }
     
     private void StepBackWhenHit() {
+        
+        PlayerInfos._InstancePlayerInfos.SetHealth(-1);
         
         _IsInvincible = true;
         GetComponent<PlayerController>()._canMove = false;
@@ -116,6 +111,10 @@ public class PlayerCollision : MonoBehaviour
         Destroy(killMobEffect, 0.5f);
         
         Destroy(enemy, 0.4f);
+        
+        Instantiate(_Coin, enemy.transform.position + Vector3.up + Vector3.forward * 2, Quaternion.identity * Quaternion.Euler(90f, 0, 0));
+        
+        ObjectivesScript._InstanceObjectivesScript.UpdateEnemies();
     }
     
     private void EnableMovement() {
@@ -133,5 +132,16 @@ public class PlayerCollision : MonoBehaviour
         _renderer.material.color = _intialColor;
         _renderer.enabled = true;
         _IsInvincible = false;
+    }
+
+    private void PickACoin(Collider other) {
+        
+        _audioSource.PlayOneShot(_CoinsSound);
+        GameObject go = Instantiate(_PickUpEffect, other.transform.position, Quaternion.identity);
+        Destroy(other.gameObject);
+        Destroy(go, 0.5f);
+        PlayerInfos._InstancePlayerInfos.GetCoin();
+        
+        ObjectivesScript._InstanceObjectivesScript.UpdateCoins();
     }
 }

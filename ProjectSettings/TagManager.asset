@@ -13,6 +13,7 @@ TagManager:
   - Checkpoint
   - Fall
   - End
+  - Cage
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - 
   - 
   - post
-  - 
+  - InvisibleMniMap
   - 
   - 
   - 

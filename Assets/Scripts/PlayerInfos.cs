@@ -14,8 +14,8 @@ public class PlayerInfos : MonoBehaviour
     public int _PlayerCoins = 0;
     public Image[] _heartImages;
     public Text _coinText;
-    public Text _finalScoreText;
-    public GameObject _finalScorePanel;
+    public Text _finalObjectivesText;
+    public GameObject _finalObjectivesPanel;
 
     private void Awake() {
 
@@ -49,16 +49,10 @@ public class PlayerInfos : MonoBehaviour
             _heartImages[i].enabled = true;
         }
     }
-    
-    public int GetScore() {
 
-        int scoreFinal = _PlayerCoins * 5 + _PlayerHealth * 10;
-        return scoreFinal;
-    }
-    
     public void ShowFinalScore() {
-
-        _finalScoreText.text = GetScore().ToString();
-        _finalScorePanel.SetActive(true);
+    
+        _finalObjectivesPanel.SetActive(true);
+        _finalObjectivesText.text = "You have finish " + ObjectivesScript._InstanceObjectivesScript._nbrOfObjectivesCompleted + " objectives on 3";
     }
 }
