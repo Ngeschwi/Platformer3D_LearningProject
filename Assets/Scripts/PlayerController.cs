@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController _InstancePlayerController;
+    
     private CharacterController _controller;
-    public float _moveSpeed;
+    private float _moveSpeed;
+    public float _walkSpeed;
+    public float _runSpeed;
     public float _jumpForce;
     public float _gravity;
     public Vector3 _moveDirection;
@@ -17,6 +21,11 @@ public class PlayerController : MonoBehaviour
     private float _verticalInput;
     public Camera _Camera;
 
+    private void Awake() {
+        
+        _InstancePlayerController = this;
+    }
+
     void Start() {
         
         _controller = GetComponent<CharacterController>();
@@ -25,11 +34,14 @@ public class PlayerController : MonoBehaviour
     
     void Update() {
         
-        _horizontalInput = Input.GetAxis("Horizontal");
-        _verticalInput = Input.GetAxis("Vertical");
-        
-        Vector3 cameraForward = _Camera.transform.forward;
-        Vector3 moveDirection = cameraForward * _verticalInput + _Camera.transform.right * _horizontalInput;
+        Vector3 moveDirection = _Camera.transform.forward * Input.GetAxis("Vertical")
+                                + _Camera.transform.right * Input.GetAxis("Horizontal");
+
+        if (Input.GetKey(KeyCode.LeftControl)) {
+            _moveSpeed = _runSpeed;
+        } else {
+            _moveSpeed = _walkSpeed;
+        }
         
         _moveDirection = new Vector3(
                     moveDirection.x * _moveSpeed,

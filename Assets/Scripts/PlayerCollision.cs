@@ -11,8 +11,6 @@ public class PlayerCollision : MonoBehaviour
     public GameObject _Coin;
     private Vector3 _HitDirection;
     private Vector3 _JumpDirection;
-    public GameObject _Cam1;
-    public GameObject _Cam2;
     public AudioClip _HitSound;
     public AudioClip _CoinsSound;
     private AudioSource _audioSource;
@@ -32,9 +30,9 @@ public class PlayerCollision : MonoBehaviour
             PickACoin(other);
 
         if (other.gameObject.tag == "Cam1")
-            _Cam1.SetActive(true);
+            CameraController._InstanceCameraController.RotateCamera(-90);
         else if (other.gameObject.tag == "Cam2")
-            _Cam2.SetActive(true);
+            CameraController._InstanceCameraController.RotateCamera(180);
             
         if (other.gameObject.tag == "Checkpoint")
             CheckPointManager._InstanceCheckPointManager.ActiveCheckPoint();
@@ -48,11 +46,11 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerExit(Collider other) {
         
-        if (other.gameObject.tag == "Cam1") {
-            _Cam1.SetActive(false);
-        } else if (other.gameObject.tag == "Cam2") {
-            _Cam2.SetActive(false);
-        }
+        if (other.gameObject.tag == "Cam1")
+            CameraController._InstanceCameraController.RotateCamera(90);
+        else if (other.gameObject.tag == "Cam2")
+            CameraController._InstanceCameraController.RotateCamera(180);
+        
         
         if (other.gameObject.tag == "Cage")
             CageScript._InstanceCageScript.ExitInACageZone();
